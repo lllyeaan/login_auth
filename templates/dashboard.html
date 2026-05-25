@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card">
+    <h1>Dashboard</h1>
+    <p class="subtitle">Halo, <strong>{{ username }}</strong> 👋</p>
+
+    <p>
+        Anda berhasil login
+    </p>
+
+    <a class="logout" href="{{ url_for('logout') }}">Logout</a>
+</div>
+{% endblock %}

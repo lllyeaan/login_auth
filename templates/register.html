@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card">
+    <h1>Register</h1>
+    <p class="subtitle">Buat akun baru</p>
+
+    <form method="POST" action="{{ url_for('register') }}">
+        <label>Username</label>
+        <input type="text" name="username" placeholder="Minimal 4 karakter">
+
+        <label>Password</label>
+        <input type="password" name="password" placeholder="Minimal 8 karakter">
+
+        <label>Konfirmasi Password</label>
+        <input type="password" name="confirm_password" placeholder="Ulangi password">
+
+        <button type="submit">Register</button>
+    </form>
+
+    <div class="note">
+        <p><strong>Aturan Password:</strong></p>
+        <ul>
+            <li>Minimal 8 karakter</li>
+            <li>Memiliki huruf besar</li>
+            <li>Memiliki huruf kecil</li>
+            <li>Memiliki angka</li>
+        </ul>
+    </div>
+
+    <p class="link-text">
+        Sudah punya akun?
+        <a href="{{ url_for('login') }}">Login di sini</a>
+    </p>
+</div>
+{% endblock %}
