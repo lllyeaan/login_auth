@@ -55,8 +55,8 @@ def create_app(test_config=None):
             password_hash = generate_password_hash(password)
 
             cursor.execute(
-                "INSERT INTO users (username, password_hash) VALUES (%s, %s)",
-                (username, password_hash)
+                "INSERT INTO users (username, password_hash, role) VALUES (%s, %s, %s)",
+                (username, password_hash, "user")
             )
 
             db.commit()
@@ -96,10 +96,15 @@ def create_app(test_config=None):
                 flash("Password salah.", "danger")
                 return render_template("login.html")
             session.clear()
+
             session["user_id"] = user["id"]
             session["username"] = user["username"]
+            session["role"] = user["role"]
 
             flash("Login berhasil.", "success")
+            if user["role"] == "admin":
+                return redirect(url_for("admin_dashboard"))
+
             return redirect(url_for("dashboard"))
 
         return render_template("login.html")
@@ -111,6 +116,18 @@ def create_app(test_config=None):
             return redirect(url_for("login"))
 
         return render_template("dashboard.html", username=session.get("username"))
+    
+    @app.route("/admin/dashboard")
+    def admin_dashboard():
+        if "user_id" not in session:
+            flash("Silakan login terlebih dahulu.", "danger")
+            return redirect(url_for("login"))
+
+        if session.get("role") != "admin":
+            flash("Anda tidak memiliki akses ke halaman admin.", "danger")
+            return redirect(url_for("dashboard"))
+
+        return render_template("admin_dashboard.html", username=session.get("username"))
 
     @app.route("/logout")
     def logout():
@@ -139,7 +156,8 @@ def init_db(app):
         CREATE TABLE IF NOT EXISTS users (
             id INT AUTO_INCREMENT PRIMARY KEY,
             username VARCHAR(100) UNIQUE NOT NULL,
-            password_hash VARCHAR(255) NOT NULL
+            password_hash VARCHAR(255) NOT NULL,
+            role VARCHAR(20) NOT NULL DEFAULT 'user'
         )
     """)
 

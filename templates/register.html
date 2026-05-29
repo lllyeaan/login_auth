@@ -5,32 +5,140 @@
     <h1>Register</h1>
     <p class="subtitle">Buat akun baru</p>
 
-    <form method="POST" action="{{ url_for('register') }}">
+    <form method="POST" action="{{ url_for('register') }}" id="registerForm">
         <label>Username</label>
-        <input type="text" name="username" placeholder="Minimal 4 karakter">
+        <input 
+            type="text" 
+            name="username" 
+            id="username"
+            placeholder="Minimal 4 karakter"
+            autocomplete="off"
+        >
+        <small class="warning-text" id="usernameWarning"></small>
 
         <label>Password</label>
-        <input type="password" name="password" placeholder="Minimal 8 karakter">
+        <input 
+            type="password" 
+            name="password" 
+            id="password"
+            placeholder="Minimal 8 karakter"
+        >
 
         <label>Konfirmasi Password</label>
-        <input type="password" name="confirm_password" placeholder="Ulangi password">
+        <input 
+            type="password" 
+            name="confirm_password" 
+            id="confirmPassword"
+            placeholder="Konfirmasi password"
+        >
+        <small class="warning-text" id="confirmPasswordWarning"></small>
 
-        <button type="submit">Register</button>
+        <div class="password-rules">
+            <p><strong>Ketentuan Password:</strong></p>
+            <ul>
+                <li id="ruleLength">Minimal 8 karakter</li>
+                <li id="ruleUppercase">Memiliki minimal 1 huruf besar</li>
+                <li id="ruleLowercase">Memiliki minimal 1 huruf kecil</li>
+                <li id="ruleNumber">Memiliki minimal 1 angka</li>
+            </ul>
+        </div>
+
+        <button type="submit" id="registerButton">Register</button>
     </form>
-
-    <div class="note">
-        <p><strong>Aturan Password:</strong></p>
-        <ul>
-            <li>Minimal 8 karakter</li>
-            <li>Memiliki huruf besar</li>
-            <li>Memiliki huruf kecil</li>
-            <li>Memiliki angka</li>
-        </ul>
-    </div>
 
     <p class="link-text">
         Sudah punya akun?
         <a href="{{ url_for('login') }}">Login di sini</a>
     </p>
 </div>
+
+<script>
+    const username = document.getElementById("username");
+    const password = document.getElementById("password");
+    const confirmPassword = document.getElementById("confirmPassword");
+
+    const usernameWarning = document.getElementById("usernameWarning");
+    const confirmPasswordWarning = document.getElementById("confirmPasswordWarning");
+
+    const ruleLength = document.getElementById("ruleLength");
+    const ruleUppercase = document.getElementById("ruleUppercase");
+    const ruleLowercase = document.getElementById("ruleLowercase");
+    const ruleNumber = document.getElementById("ruleNumber");
+
+    function setRuleStatus(element, isValid) {
+        if (isValid) {
+            element.classList.add("valid-rule");
+            element.classList.remove("invalid-rule");
+        } else {
+            element.classList.add("invalid-rule");
+            element.classList.remove("valid-rule");
+        }
+    }
+
+    function validatePassword() {
+        const value = password.value;
+
+        const hasMinLength = value.length >= 8;
+        const hasUppercase = /[A-Z]/.test(value);
+        const hasLowercase = /[a-z]/.test(value);
+        const hasNumber = /[0-9]/.test(value);
+
+        setRuleStatus(ruleLength, hasMinLength);
+        setRuleStatus(ruleUppercase, hasUppercase);
+        setRuleStatus(ruleLowercase, hasLowercase);
+        setRuleStatus(ruleNumber, hasNumber);
+
+        return hasMinLength && hasUppercase && hasLowercase && hasNumber;
+    }
+
+    function validateConfirmPassword() {
+        if (confirmPassword.value === "") {
+            confirmPasswordWarning.textContent = "";
+            return false;
+        }
+
+        if (password.value !== confirmPassword.value) {
+            confirmPasswordWarning.textContent = "Konfirmasi password tidak sama.";
+            return false;
+        }
+
+        confirmPasswordWarning.textContent = "";
+        return true;
+    }
+
+    function validateUsername() {
+        if (username.value === "") {
+            usernameWarning.textContent = "";
+            return false;
+        }
+
+        if (username.value.length < 4) {
+            usernameWarning.textContent = "Username minimal 4 karakter.";
+            return false;
+        }
+
+        usernameWarning.textContent = "";
+        return true;
+    }
+
+    username.addEventListener("input", validateUsername);
+
+    password.addEventListener("input", function () {
+        validatePassword();
+        validateConfirmPassword();
+    });
+
+    confirmPassword.addEventListener("input", validateConfirmPassword);
+
+    document.getElementById("registerForm").addEventListener("submit", function (event) {
+        const isUsernameValid = validateUsername();
+        const isPasswordValid = validatePassword();
+        const isConfirmValid = validateConfirmPassword();
+
+        if (!isUsernameValid || !isPasswordValid || !isConfirmValid) {
+            event.preventDefault();
+            alert("Mohon lengkapi data register sesuai ketentuan.");
+        }
+    });
+</script>
 {% endblock %}

@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="admin-page">
+
+    <div class="admin-header">
+        <div>
+            <h1>Admin Panel</h1>
+            <p>Halo, <strong>{{ username }}</strong> 👋 Kelola data toko sepatu di sini.</p>
+        </div>
+
+        <a class="logout admin-logout" href="{{ url_for('logout') }}">Logout</a>
+    </div>
+
+    <div class="admin-stats">
+        <div class="admin-stat-card">
+            <p>Total Produk</p>
+            <h2>128</h2>
+            <span>Produk aktif</span>
+        </div>
+
+        <div class="admin-stat-card">
+            <p>Pesanan Masuk</p>
+            <h2>34</h2>
+            <span>Perlu diproses</span>
+        </div>
+
+        <div class="admin-stat-card">
+            <p>Stok Menipis</p>
+            <h2>9</h2>
+            <span>Butuh restock</span>
+        </div>
+
+        <div class="admin-stat-card">
+            <p>Pendapatan</p>
+            <h2>Rp 12,4Jt</h2>
+            <span>Bulan ini</span>
+        </div>
+    </div>
+
+    <div class="admin-content-grid">
+        <div class="admin-panel">
+            <div class="admin-panel-header">
+                <div>
+                    <h3>Manajemen Produk</h3>
+                    <p>Data produk sepatu yang tersedia di katalog.</p>
+                </div>
+
+                <button class="add-button" type="button">+ Tambah Produk</button>
+            </div>
+
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Produk</th>
+                        <th>Kategori</th>
+                        <th>Stok</th>
+                        <th>Harga</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>Sneakers Classic</td>
+                        <td>Sneakers</td>
+                        <td>42</td>
+                        <td>Rp 350.000</td>
+                        <td><span class="admin-badge active">Aktif</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>Running Air Max</td>
+                        <td>Running</td>
+                        <td>28</td>
+                        <td>Rp 520.000</td>
+                        <td><span class="admin-badge active">Aktif</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>Loafers Brown</td>
+                        <td>Formal</td>
+                        <td>3</td>
+                        <td>Rp 410.000</td>
+                        <td><span class="admin-badge warning">Stok Tipis</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>Canvas Daily</td>
+                        <td>Casual</td>
+                        <td>16</td>
+                        <td>Rp 280.000</td>
+                        <td><span class="admin-badge active">Aktif</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="admin-panel">
+            <div class="admin-panel-header simple">
+                <div>
+                    <h3>Pesanan Terbaru</h3>
+                    <p>Daftar pesanan dummy hari ini.</p>
+                </div>
+            </div>
+
+            <div class="order-list">
+                <div class="order-item">
+                    <div>
+                        <strong>#ORD-001</strong>
+                        <p>Sneakers Classic - Size 42</p>
+                    </div>
+                    <span class="admin-badge process">Diproses</span>
+                </div>
+
+                <div class="order-item">
+                    <div>
+                        <strong>#ORD-002</strong>
+                        <p>Running Air Max - Size 40</p>
+                    </div>
+                    <span class="admin-badge active">Selesai</span>
+                </div>
+
+                <div class="order-item">
+                    <div>
+                        <strong>#ORD-003</strong>
+                        <p>Loafers Brown - Size 41</p>
+                    </div>
+                    <span class="admin-badge warning">Menunggu</span>
+                </div>
+
+                <div class="order-item">
+                    <div>
+                        <strong>#ORD-004</strong>
+                        <p>Canvas Daily - Size 39</p>
+                    </div>
+                    <span class="admin-badge process">Diproses</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

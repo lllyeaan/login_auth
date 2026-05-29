@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <main class="container">
+    <main class="{% if request.endpoint == 'dashboard' or request.endpoint == 'admin_dashboard' %}dashboard-container{% else %}container{% endif %}">
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
                 <div class="messages">

@@ -1,14 +1,117 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="card">
-    <h1>Dashboard</h1>
-    <p class="subtitle">Halo, <strong>{{ username }}</strong> 👋</p>
+<div class="catalog-page">
 
-    <p>
-        Anda berhasil login
-    </p>
+    <div class="catalog-header">
+        <div>
+            <h1>Katalog Sepatu</h1>
+            <p>Halo, <strong>{{ username }}</strong> 👋 Pilih produk sepatu favoritmu.</p>
+        </div>
 
-    <a class="logout" href="{{ url_for('logout') }}">Logout</a>
+        <a class="logout catalog-logout" href="{{ url_for('logout') }}">Logout</a>
+    </div>
+
+    <div class="catalog-search">
+        <input type="text" placeholder="Cari sepatu...">
+        <select>
+            <option>Semua Kategori</option>
+            <option>Sneakers</option>
+            <option>Running</option>
+            <option>Formal</option>
+            <option>Casual</option>
+        </select>
+    </div>
+
+    <div class="category-list">
+        <span class="category active">All</span>
+        <span class="category">Sneakers</span>
+        <span class="category">Running</span>
+        <span class="category">Formal</span>
+        <span class="category">Casual</span>
+    </div>
+
+    <div class="product-grid">
+
+        <div class="product-card">
+            <div class="product-image">👟</div>
+            <div class="product-info">
+                <p class="product-category">Sneakers</p>
+                <h3>Sneakers Classic</h3>
+                <p class="product-desc">Sepatu casual nyaman untuk aktivitas harian.</p>
+                <div class="product-bottom">
+                    <strong>Rp 350.000</strong>
+                    <span class="stock ready">Tersedia</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <div class="product-image">🏃</div>
+            <div class="product-info">
+                <p class="product-category">Running</p>
+                <h3>Running Air Max</h3>
+                <p class="product-desc">Ringan dan cocok digunakan untuk olahraga.</p>
+                <div class="product-bottom">
+                    <strong>Rp 520.000</strong>
+                    <span class="stock ready">Tersedia</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <div class="product-image">👞</div>
+            <div class="product-info">
+                <p class="product-category">Formal</p>
+                <h3>Loafers Brown</h3>
+                <p class="product-desc">Sepatu formal dengan desain simpel dan elegan.</p>
+                <div class="product-bottom">
+                    <strong>Rp 410.000</strong>
+                    <span class="stock limited">Stok Tipis</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <div class="product-image">👟</div>
+            <div class="product-info">
+                <p class="product-category">Casual</p>
+                <h3>Canvas Daily</h3>
+                <p class="product-desc">Sepatu canvas untuk gaya santai sehari-hari.</p>
+                <div class="product-bottom">
+                    <strong>Rp 280.000</strong>
+                    <span class="stock ready">Tersedia</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <div class="product-image">👟</div>
+            <div class="product-info">
+                <p class="product-category">Sneakers</p>
+                <h3>Streetwear White</h3>
+                <p class="product-desc">Sneakers putih minimalis untuk outfit casual.</p>
+                <div class="product-bottom">
+                    <strong>Rp 390.000</strong>
+                    <span class="stock ready">Tersedia</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <div class="product-image">🥾</div>
+            <div class="product-info">
+                <p class="product-category">Boots</p>
+                <h3>Urban Boots</h3>
+                <p class="product-desc">Sepatu boots kuat dengan tampilan modern.</p>
+                <div class="product-bottom">
+                    <strong>Rp 610.000</strong>
+                    <span class="stock limited">Stok Tipis</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
 </div>
 {% endblock %}
